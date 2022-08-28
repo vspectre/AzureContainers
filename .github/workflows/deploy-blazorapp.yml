@@ -32,3 +32,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           # Container registry server url
           login-server: ${{ secrets.DOCKER_SERVER }}
+      - name: Building Docker Image
+        working-directory: ./BlazorApp/BlazorApp
+        run: docker build .. -f ./Dockerfile -t ${{ secrets.DOCKER_SERVER }}/atbl:latest
+      - name: Push the Image
+        working-directory: ./BlazorApp/BlazorApp
+        run: docker push ${{ secrets.DOCKER_SERVER}}/atbl:latest
